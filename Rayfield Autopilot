@@ -1,0 +1,639 @@
+-- Made By MindTheFuckingLag
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+    Name = "SCR Autopilot v2",
+    LoadingTitle = "Original by PlaceReporter99",
+    LoadingSubtitle = "Reworked by MindTheLag",
+    ConfigurationSaving = {
+        Enabled = false,
+        FolderName = nil,
+        FileName = "SCR Autopilot v3"
+    },
+    Discord = {
+        Enabled = false,
+        Invite = "noinvitelink",
+        RememberJoins = true
+    },
+    KeySystem = true,
+    KeySettings = {
+        Title = "Get a key",
+        Subtitle = "Key System",
+        Note = "Just Kidding, Key is: 'SCRIsAwesome'",
+        FileName = "SCRAutopilotKey",
+        SaveKey = true,
+        GrabKeyFromSite = false,
+        Key = {"SCRIsAwesome"}
+    }
+})
+
+local rayfieldFontApplied = false
+
+local function applyRayfieldMontserrat()
+    if rayfieldFontApplied then
+        return true
+    end
+
+    local player = game.Players.LocalPlayer
+    if not player then
+        return false
+    end
+
+    local playerGui = player:FindFirstChildOfClass("PlayerGui")
+    if not playerGui then
+        return false
+    end
+
+    local rayfieldGui
+    for _, gui in ipairs(playerGui:GetChildren()) do
+        if gui:IsA("ScreenGui") and string.find(string.lower(gui.Name), "rayfield") then
+            rayfieldGui = gui
+            break
+        end
+    end
+
+    if not rayfieldGui then
+        return false
+    end
+
+    local function setTextFont(obj)
+        if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
+            local ok = pcall(function()
+                obj.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json")
+            end)
+            if not ok then
+                obj.Font = Enum.Font.Gotham
+            end
+        end
+    end
+
+    for _, obj in ipairs(rayfieldGui:GetDescendants()) do
+        setTextFont(obj)
+    end
+    rayfieldGui.DescendantAdded:Connect(setTextFont)
+    rayfieldFontApplied = true
+    return true
+end
+
+task.defer(function()
+    for _ = 1, 40 do
+        if applyRayfieldMontserrat() then
+            break
+        end
+        task.wait(0.25)
+    end
+end)
+
+local MainTab = Window:CreateTab("Main", 4483362458)
+local AutoGuardTab = Window:CreateTab("Auto Guard", 4483362458)
+
+local isEnabled = false
+local cs
+local nl
+local autoNextLegEnabled = false
+local autoDriveInitialized = false
+local autoDriveRunning = false
+local autoDriveState
+local startAutoDrive
+local stopAutoDrive
+local autoGuardEnabled = false
+local autoGuardRunning = false
+local autoGuardToggleRef
+local autopilotToggleRef
+
+local function setToggleOff(toggleRef)
+    if not toggleRef then
+        return
+    end
+    pcall(function()
+        toggleRef:Set(false)
+    end)
+    pcall(function()
+        toggleRef:SetValue(false)
+    end)
+end
+
+-- Tunable autopilot settings.
+local MAXSPEED = 75
+local OBEYSPEEDLIMIT = true
+local SAFESTOPSPEED = 30
+local YELLOWSIGNALSPEED = 45
+local SAFESTOPDISTANCE = 0.2
+local BUFFERSTOP = 100
+
+local function refreshAutoDriveFromSettings()
+    if not autoDriveRunning or not autoDriveState or not autoDriveState.handlers or not autoDriveState.handlers.b then
+        return
+    end
+    pcall(autoDriveState.handlers.b)
+end
+
+local function findDriveGui(playerGui)
+    local direct = playerGui:FindFirstChild("DriveGui")
+    if direct then
+        return direct
+    end
+
+    local deep = playerGui:FindFirstChild("DriveGui", true)
+    if deep then
+        return deep
+    end
+
+    for _, gui in ipairs(playerGui:GetDescendants()) do
+        if gui:IsA("ScreenGui") and string.find(string.lower(gui.Name), "drive") and gui:FindFirstChild("Cluster", true) then
+            return gui
+        end
+    end
+    return nil
+end
+
+autopilotToggleRef = MainTab:CreateToggle({
+    Name = "Enable Autopilot",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        isEnabled = Value
+        if Value then
+            autoGuardEnabled = false
+            setToggleOff(autoGuardToggleRef)
+            local ok, startedOrErr = pcall(startAutoDrive)
+            if not ok then
+                warn("Autopilot start failed:", startedOrErr)
+                isEnabled = false
+                if stopAutoDrive then
+                    stopAutoDrive()
+                end
+            elseif not startedOrErr then
+                warn("Autopilot could not start yet. Enter a train cab first.")
+                isEnabled = false
+                if stopAutoDrive then
+                    stopAutoDrive()
+                end
+            end
+        else
+            stopAutoDrive()
+        end
+    end,
+})
+
+local function clickNextLeg()
+    if not nl then
+        return
+    end
+
+    if not nl.Visible or not nl.Active then
+        return
+    end
+
+    if firesignal and nl.MouseButton1Click then
+        pcall(function()
+            firesignal(nl.MouseButton1Click)
+        end)
+        return
+    end
+
+    pcall(function()
+        nl:Activate()
+    end)
+end
+
+MainTab:CreateToggle({
+    Name = "Auto Next Leg",
+    CurrentValue = false,
+    Flag = "AutoNextLegToggle",
+    Callback = function(Value)
+        autoNextLegEnabled = Value
+        if not Value then
+            return
+        end
+
+        task.spawn(function()
+            while autoNextLegEnabled do
+                clickNextLeg()
+                task.wait(1.5)
+            end
+        end)
+    end,
+})
+
+autoGuardToggleRef = AutoGuardTab:CreateToggle({
+    Name = "Enable Auto Guard",
+    CurrentValue = false,
+    Flag = "AutoGuardToggle",
+    Callback = function(Value)
+        autoGuardEnabled = Value
+        if Value then
+            isEnabled = false
+            stopAutoDrive()
+            setToggleOff(autopilotToggleRef)
+        end
+        if autoGuardEnabled and autoGuardRunning then
+            return
+        end
+
+        if autoGuardEnabled then
+            autoGuardRunning = true
+            task.spawn(function()
+                local guardVim = game:GetService("VirtualInputManager")
+                local guardInput = {
+                    press = function(key)
+                        guardVim:SendKeyEvent(true, key, false, nil)
+                        task.wait(0.005)
+                        guardVim:SendKeyEvent(false, key, false, nil)
+                    end
+                }
+
+                while autoGuardEnabled do
+                    guardInput.press(Enum.KeyCode.E)
+                    task.wait(0.1)
+                    guardInput.press(Enum.KeyCode.T)
+                    task.wait(0.1)
+                    guardInput.press(Enum.KeyCode.Y)
+                    task.wait(0.1)
+                    guardInput.press(Enum.KeyCode.Q)
+                    task.wait(0.1)
+                    guardInput.press(Enum.KeyCode.R)
+                    task.wait(0.1)
+                end
+
+                autoGuardRunning = false
+            end)
+        end
+    end,
+})
+
+-- Settings UI rebuilt from scratch.
+local SettingsTab = Window:CreateTab("Settings", 4483362458)
+
+local function createSliderSafe(config)
+    local ok, err = pcall(function()
+        SettingsTab:CreateSlider(config)
+    end)
+    if not ok then
+        warn("Settings slider error:", config.Name, err)
+    end
+end
+
+createSliderSafe({
+    Name = "Max Speed",
+    Range = {0, 120},
+    Increment = 1,
+    Suffix = "mph",
+    CurrentValue = MAXSPEED,
+    Flag = "SETTINGS_MAXSPEED_V4",
+    Callback = function(Value)
+        MAXSPEED = Value
+        refreshAutoDriveFromSettings()
+    end,
+})
+
+createSliderSafe({
+    Name = "Safe Stop Speed",
+    Range = {0, 80},
+    Increment = 1,
+    Suffix = "mph",
+    CurrentValue = SAFESTOPSPEED,
+    Flag = "SETTINGS_SAFESTOPSPEED_V4",
+    Callback = function(Value)
+        SAFESTOPSPEED = Value
+        refreshAutoDriveFromSettings()
+    end,
+})
+
+createSliderSafe({
+    Name = "Yellow Signal Speed",
+    Range = {0, 80},
+    Increment = 1,
+    Suffix = "mph",
+    CurrentValue = YELLOWSIGNALSPEED,
+    Flag = "SETTINGS_YELLOWSIGNALSPEED_V4",
+    Callback = function(Value)
+        YELLOWSIGNALSPEED = Value
+        refreshAutoDriveFromSettings()
+    end,
+})
+
+createSliderSafe({
+    Name = "Safe Stop Distance",
+    Range = {0, 1},
+    Increment = 0.01,
+    Suffix = "mi",
+    CurrentValue = SAFESTOPDISTANCE,
+    Flag = "SETTINGS_SAFESTOPDISTANCE_V4",
+    Callback = function(Value)
+        SAFESTOPDISTANCE = Value
+        refreshAutoDriveFromSettings()
+    end,
+})
+
+createSliderSafe({
+    Name = "Buffer Stop Distance",
+    Range = {0, 300},
+    Increment = 1,
+    Suffix = "studs",
+    CurrentValue = BUFFERSTOP,
+    Flag = "SETTINGS_BUFFERSTOP_V4",
+    Callback = function(Value)
+        BUFFERSTOP = Value
+        refreshAutoDriveFromSettings()
+    end,
+})
+
+local okToggle, errToggle = pcall(function()
+    SettingsTab:CreateToggle({
+        Name = "Obey Speed Limit",
+        CurrentValue = OBEYSPEEDLIMIT,
+        Flag = "SETTINGS_OBEYSPEEDLIMIT_V4",
+        Callback = function(Value)
+            OBEYSPEEDLIMIT = Value
+            refreshAutoDriveFromSettings()
+        end,
+    })
+end)
+if not okToggle then
+    warn("Settings toggle error: Obey Speed Limit", errToggle)
+end
+-- You may want to change these constants depending on your train.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local function disconnectAutoDriveConnections()
+    if not autoDriveState or not autoDriveState.connections then
+        return
+    end
+    for _, connection in pairs(autoDriveState.connections) do
+        if connection then
+            connection:Disconnect()
+        end
+    end
+    autoDriveState.connections = {}
+end
+
+startAutoDrive = function()
+    if autoDriveRunning then
+        return true
+    end
+
+    if not autoDriveInitialized then
+        print("AUTO DRIVE")
+
+        local state = { connections = {} }
+        local player = game.Players.LocalPlayer
+        if not player then
+            warn("Autopilot: LocalPlayer not found")
+            return false
+        end
+
+        local playerGui = player:FindFirstChild("PlayerGui")
+        if not playerGui then
+            warn("Autopilot: PlayerGui not found")
+            return false
+        end
+
+        local drive = findDriveGui(playerGui)
+        if not drive then
+            task.wait(2)
+            drive = findDriveGui(playerGui)
+        end
+        if not drive then
+            warn("Autopilot: DriveGui not found. Join and take control of a train first.")
+            return false
+        end
+
+        state.cs = Instance.new("BindableEvent")
+        state.cs.Name = "ChangeSpeed"
+        cs = state.cs
+
+        local okBuf, bufOrErr = pcall(function()
+            return loadstring(game:HttpGet("https://raw.githubusercontent.com/PlaceReporter99/SCR-Autopilot/refs/heads/main/const/RouteBuffers.lua"))()
+        end)
+        if not okBuf then
+            warn("Autopilot: failed to load route buffers:", tostring(bufOrErr))
+            return false
+        end
+        state.buf = bufOrErr
+        signalv = {
+            ["proceed"] = 0,
+            ["precaution"] = 1,
+            ["caution"] = 2,
+            ["danger"] = 3,
+            ["unknown"] = 4
+        }
+
+        local fex = Instance.new("BindableEvent")
+        fex.Name = "ExecuteFunction"
+        fex.Event:Connect(function(f) f() end)
+
+        local vim = game:GetService("VirtualInputManager")
+        input = {
+            hold = function(key, time)
+                print("Holding key", key)
+                vim:SendKeyEvent(true, key, false, nil)
+                task.wait(time)
+                vim:SendKeyEvent(false, key, false, nil)
+                print("Finished holding key", key)
+            end,
+            press = function(key)
+                print("Pressing key", key)
+                vim:SendKeyEvent(true, key, false, nil)
+                task.wait(0.005)
+                vim:SendKeyEvent(false, key, false, nil)
+            end,
+            start = function(key)
+                print("starting key", key)
+                vim:SendKeyEvent(true, key, false, nil)
+            end,
+            stop = function(key)
+                print("stopping key", key)
+                vim:SendKeyEvent(false, key, false, nil)
+            end
+        }
+
+        local schd = drive.Additional.DetailsStack.AdvanceContainer.Main.ScheduleDetails
+        local left = schd.Counters
+        local cluster = drive.Cluster
+        local arm = cluster.Spedometer.TargetIndicator
+        local d = left.Distance
+        local msg = drive.Additional.DetailsStack.MessageContainer
+        local signal = drive.Additional.DetailsStack.AdvanceContainer.Signal.Standard
+        local signald = drive.Additional.DetailsStack.AdvanceContainer.Signal.Distance
+        local speedl = drive.Cluster.Stats.CurrentState.SpeedLimit.Limit
+        nl = drive.Summary.SummaryPage.Controls.NextLeg
+
+        local function getD(v)
+            return (workspace.CurrentCamera.Focus.Position - v).Magnitude
+        end
+
+        local function getSpeedLimit()
+            if OBEYSPEEDLIMIT then
+                return tonumber(speedl.Text) or 1000
+            end
+            return 1000
+        end
+
+        local function getSignal()
+            if signal.Danger.BackgroundTransparency == 0 then
+                return signalv.danger
+            end
+            if signal.Precaution.BackgroundTransparency == 0 then
+                return signalv.precaution
+            end
+            if signal.Caution.BackgroundTransparency == 0 then
+                return signalv.caution
+            end
+            if signal.Proceed.BackgroundTransparency == 0 then
+                return signalv.proceed
+            end
+            return signalv.unknown
+        end
+
+        local function getSignalDistance()
+            return tonumber(signald.Text:sub(1, -4)) or math.huge
+        end
+
+        speed_angle = function(speed) return speed * 1.2 - 31 end
+
+        function target(speed)
+            local tt = false
+            local stopr = cs.Event:Connect(function()
+                tt = true
+            end)
+
+            input.stop(Enum.KeyCode.W)
+            input.stop(Enum.KeyCode.S)
+
+            if -1.8 <= speed_angle(speed) - arm.Rotation and speed_angle(speed) - arm.Rotation <= 1.8 then
+                -- already near target speed
+            elseif speed_angle(speed) < arm.Rotation then
+                input.start(Enum.KeyCode.S)
+                while speed_angle(speed) < arm.Rotation or tt do
+                    task.wait(0.005)
+                end
+                input.stop(Enum.KeyCode.S)
+            elseif speed_angle(speed) > arm.Rotation then
+                input.start(Enum.KeyCode.W)
+                while speed_angle(speed) > arm.Rotation or tt do
+                    task.wait(0.005)
+                end
+                input.stop(Enum.KeyCode.W)
+            end
+
+            stopr:Disconnect()
+        end
+
+        local function onClockTick()
+            input.press(Enum.KeyCode.T)
+            input.press(Enum.KeyCode.Q)
+            local dist = tonumber(d.Text:sub(1, -4))
+            if not dist then
+                return
+            end
+            if arm.Rotation <= speed_angle(10)
+                and dist ~= 0
+                and (getSignal() ~= signalv.danger or getSignalDistance() > dist) then
+                task.wait(10)
+                local distAfterWait = tonumber(d.Text:sub(1, -4))
+                if not distAfterWait then
+                    return
+                end
+                if arm.Rotation <= speed_angle(10)
+                    and distAfterWait ~= 0
+                    and (getSignal() ~= signalv.danger or getSignalDistance() > distAfterWait) then
+                    cs:Fire(SAFESTOPSPEED)
+                end
+            end
+        end
+
+        local function b()
+            local num = tonumber(d.Text:sub(1, -4))
+            if not num then
+                return
+            end
+            if num == 0 or (getSignal() == signalv.danger and num >= getSignalDistance()) then
+                if num == 0 then
+                    local plat = string.gsub(schd.Platform.Text, "Platform ", "")
+                    local st = schd.NextStop.Text
+                    if state.buf[st] and state.buf[st][plat] then
+                        while getD(state.buf[st][plat]) >= BUFFERSTOP and autoDriveRunning do
+                            cs:Fire(15)
+                            task.wait(0.1)
+                        end
+                    end
+                end
+                cs:Fire(0)
+            elseif num <= SAFESTOPDISTANCE then
+                cs:Fire(math.min(SAFESTOPSPEED, getSpeedLimit()))
+            elseif getSignal() == signalv.caution then
+                cs:Fire(math.min(YELLOWSIGNALSPEED, getSpeedLimit()))
+            elseif num > SAFESTOPDISTANCE and (getSignal() == signalv.precaution or getSignal() == signalv.proceed) then
+                cs:Fire(math.min(MAXSPEED, getSpeedLimit()))
+            end
+        end
+
+        local function under(child)
+            if child.Name == "DriveMessage"
+                and (string.match(child.TextLabel.Text, "longside") or string.match(child.TextLabel.Text, "uffer")) then
+                cs:Fire(5)
+                task.wait(3)
+                cs:Fire(0)
+            end
+        end
+
+        state.refs = {
+            drive = drive,
+            d = d,
+            signald = signald,
+            speedl = speedl,
+            msg = msg
+        }
+        state.handlers = {
+            onClockTick = onClockTick,
+            b = b,
+            under = under
+        }
+        state.getSpeedLimit = getSpeedLimit
+
+        cs.Event:Connect(function(a)
+            target(a)
+        end)
+
+        autoDriveState = state
+        autoDriveInitialized = true
+    end
+
+    autoDriveRunning = true
+    disconnectAutoDriveConnections()
+
+    local refs = autoDriveState.refs
+    local handlers = autoDriveState.handlers
+    autoDriveState.connections.clock = refs.drive.Clock.TextLabel:GetPropertyChangedSignal("Text"):Connect(handlers.onClockTick)
+    autoDriveState.connections.distance = refs.d:GetPropertyChangedSignal("Text"):Connect(handlers.b)
+    autoDriveState.connections.signalDistance = refs.signald:GetPropertyChangedSignal("Text"):Connect(handlers.b)
+    autoDriveState.connections.speedLimit = refs.speedl:GetPropertyChangedSignal("Text"):Connect(handlers.b)
+    autoDriveState.connections.msg = refs.msg.ChildAdded:Connect(handlers.under)
+
+    autoDriveState.handlers.b()
+    if cs and autoDriveState.getSpeedLimit then
+        cs:Fire(math.min(MAXSPEED, autoDriveState.getSpeedLimit()))
+    end
+    return true
+end
+
+stopAutoDrive = function()
+    autoDriveRunning = false
+    disconnectAutoDriveConnections()
+    if cs then
+        cs:Fire(0)
+    end
+end
