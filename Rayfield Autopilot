@@ -1,1 +1,639 @@
---[[ v1.0.0 https://wearedevs.net/obfuscator ]] return(function(...)local v={"\069\047\083\117\081\098\084\067\087\090\065\118\070\105\053\087\057\116\070\088","\100\101\116\054\114\081\115\070\084\049\115\106","\087\079\061\061","\105\098\067\098\043\112\107\120\112\089\067\061","\073\069\098\085\043\069\073\054\056\057\050\106\100\069\073\117\100\069\073\051\056\086\061\061";"\043\101\073\102\078\049\073\102\084\119\050\107\084\120\097\106";"\051\118\119\089\071\048\101\108\101\055\102\061";"\121\075\072\112\067\113\087\114","\049\120\097\114\043\049\076\109\053\119\076\086\082\069\103\088\053\090\061\061";"\097\065\071\099\043\070\117\107\056\048\085\070\085\086\061\061","\054\114\104\052\080\072\066\073\067\100\113\105\082\112\049\103\078\122\076\110\089\107\055\043\115\055\057\061","\082\109\050\102\043\057\100\106\100\090\061\061","\112\073\053\054\083\088\098\072\048\076\067\101\090\072\084\061","\078\103\055\078\106\080\082\051\119\086\061\061","\068\099\086\080\087\116\047\054\115\075\108\080\054\114\074\053\088\069\049\073\074\097\085\116\070\105\052\052\115\086\061\061";"\050\099\052\082\116\108\078\072\100\090\061\061","\043\069\115\107\078\069\070\061","\069\099\068\077\090\087\057\077\102\102\051\061","\057\090\083\084","\072\102\088\116\049\080\117\083\104\086\061\061","\071\072\073\102\047\079\061\061","\069\070\087\097\050\075\120\085\113\070\061\061","\098\113\097\086\068\118\043\061","\081\080\077\077\054\043\073\097\047\112\052\053\103\113\104\061";"\087\053\102\118\070\121\110\084\102\086\057\061";"\078\049\098\102\114\090\061\061";"\115\073\106\048\084\065\122\048\078\051\073\089\049\118\073\102";"\055\111\051\081\065\070\061\061";"\099\072\102\065\090\101\118\077\097\110\097\084\079\053\107\073","\088\102\056\054\118\065\103\102\067\049\112\101\043\057\106\111\082\057\043\061";"\114\051\098\097\122\077\050\075\043\106\098\106\115\117\043\065\088\069\055\061";"\121\114\049\107\109\074\079\061","\076\079\061\061";"\086\077\115\081\086\066\050\118\073\065\103\112\078\117\050\114\078\086\061\061","\087\111\117\098\084\105\105\115\111\102\122\099\083\086\061\061","\073\049\112\069\043\077\088\081\086\051\056\065\071\109\098\111\067\109\055\061","\086\111\080\055\115\111\111\065\074\075\043\120\054\121\076\114\075\110\074\086\069\079\047\061";"\055\105\116\110\113\053\068\056\055\049\070\061","\081\119\104\113\056\079\061\061","\083\090\061\061","\116\054\085\066\048\075\088\111\083\086\061\061","\083\121\090\118\066\043\052\098\080\070\061\061";"\051\116\048\109\065\080\118\086\118\071\122\082\082\097\114\110\047\090\061\061","\086\055\050\104\051\111\089\070\055\053\122\089\068\082\097\117\099\122\066\076\070\070\061\061";"\050\049\112\066\078\086\061\061";"\043\069\098\076\043\077\067\061","\049\055\079\072\099\067\074\049\083\122\066\080\051\082\116\065";"\088\085\119\075\048\086\061\061","\115\106\050\048\050\073\106\117\084\106\106\089\067\101\106\048\100\079\061\061","\115\105\120\120\087\120\075\069\084\104\051\061";"\120\111\102\085\099\090\061\061","\050\075\084\049\083\073\056\061";"\072\106\076\090\121\070\061\061","\085\054\118\070\066\088\053\101\086\104\088\061";"\073\084\098\083\067\086\061\061","\050\081\099\097\071\051\112\107\088\106\050\084\049\118\106\051\050\079\061\061";"\118\098\103\106\080\080\111\080\080\098\119\043\117\080\070\116\113\066\103\122\079\121\055\065\067\070\061\061","\085\056\110\112\110\101\072\071\048\100\057\061";"\050\073\113\112\074\071\104\053\097\110\084\110\049\086\061\061","\110\048\098\078\085\104\070\061","\086\081\103\106\084\119\050\106\073\101\106\111\122\069\116\081","\079\099\116\081\117\111\057\043\098\079\061\061","\118\075\086\070\082\069\100\070\071\117\122\120\050\057\050\070\053\075\056\061";"\116\086\057\108\111\074\118\053";"\115\076\109\048\111\089\052\113\088\052\066\121\100\076\111\110","\106\049\053\081\048\088\105\104\079\081\104\061","\076\067\043\115\072\088\083\106\089\080\104\061","\085\069\076\072\122\120\050\085\112\103\084\061";"\056\086\071\071\054\068\057\101\080\070\061\061","\118\118\106\054\071\049\112\089\053\109\050\101\050\118\099\110\082\051\052\061";"\075\074\117\110\108\073\084\100\111\086\061\061","\075\097\068\103\072\086\107\056\054\078\057\120\071\082\104\073\107\079\075\118";"\087\088\043\101\090\072\043\076\112\084\106\099\071\120\102\087","\043\109\103\076\078\077\086\061";"\051\122\118\047\121\098\109\111\113\115\078\076\119\089\043\118","\076\086\117\066\047\048\085\088\090\072\081\049\098\053\115\071\047\098\104\080\055\066\072\115\078\104\071\122\056\079\061\061","\047\067\052\065\102\067\054\115\080\120\085\090\074\110\068\054\115\089\075\082\075\075\122\088\048\104\054\085\083\048\121\084\080\100\048\084\088\120\078\070\048\087\100\078\113\074\088\066\054\057\108\110\105\103\117\082\048\068\043\068\098\069\075\072\073\110\121\057\106\056\078\072\080\043\087\114\069\056\083\048\122\069\113\111\115\102\067\121\101\111\069\105\084\070\066\103\111\085\099\070\084\073\119\114\079\078\047\115\098\116\055\043\116\100\099\068\052\098\086\113\053\102\053\111\117\113\057\119\049\066\101\105\069\118\118\105";"\068\074\105\053\107\083\089\057\107\090\061\061";"\100\081\110\075\082\080\088\061";"\118\069\055\065\084\120\088\054\082\069\103\111\049\051\100\073\073\079\061\061";"\102\066\053\071\097\111\052\061";"\114\073\101\105\070\070\061\061";"\051\076\101\053\120\078\110\101\108\066\076\073\103\111\043\061","\068\100\104\061";"\085\120\083\057\072\098\073\114\105\090\061\061";"\050\114\108\078","\100\101\098\054\078\079\061\061";"\074\074\103\114\122\082\071\102\122\051\098\101\104\066\068\067\107\103\104\053";"\057\079\061\061","\049\079\061\061","\120\076\055\109\099\043\119\118\054\084\107\069\054\112\089\055\102\102\111\117\053\075\072\065\111\080\053\110\117\107\054\078\052\048\118\112\113\055\070\106\108\074\110\079\105\099\089\075\049\050\110\066\052\121\067\061","\085\065\111\084\112\121\097\117\057\066\080\080\068\086\061\061","\074\101\086\114\043\084\081\055\069\078\047\066\119\051\116\078\077\075\073\112\069\066\074\075\043\084\055\061","\070\084\102\050\081\086\061\061";"\088\057\052\097\050\119\098\055\071\075\107\109\100\106\098\049","\118\068\052\097\077\122\113\120\043\086\048\043\098\083\117\079\083\110\049\100\069\076\108\118\056\085\056\070\066\090\061\061","\057\076\112\090","\066\075\043\057\112\090\061\061","\043\119\050\065\100\119\057\112\115\118\050\080\115\120\085\052";"\115\097\071\081\101\068\087\057\106\070\061\061","\098\055\048\083\119\070\061\061","\118\065\089\103\043\090\061\061","\049\085\122\085\104\105\047\068\050\121\051\109\089\119\069\077\056\107\057\117\114\107\111\067\115\052\118\082\102\117\086\065\057\108\082\113\119\054\065\113\057\102\084\061","\066\079\086\047\118\079\061\061";"\100\100\082\085\089\076\066\119\102\065\101\114\070\088\066\098\109\099\071\056\057\073\076\099\082\097\082\050\065\105\067\099\086\120\071\067\066\090\061\061";"\107\119\111\109\081\057\086\061";"\104\079\061\061";"\066\065\082\116\080\078\087\104\117\083\105\067\053\086\081\068\087\085\104\054","\112\109\108\056\106\099\054\082";"\084\117\073\097\115\098\050\108\088\057\076\109\118\075\100\111","\099\050\076\086\075\116\105\057\080\066\099\087\113\097\067\108\114\103\103\100";"\081\054\114\078\068\055\104\067\106\056\079\054\073\114\109\114\068\079\061\061","\106\121\117\072\085\077\104\053\054\081\081\050\073\111\043\061","\113\090\061\061","\070\102\079\072\120\086\061\061","\097\103\117\082\100\084\104\061";"\098\103\113\086\103\078\053\047\113\120\080\067\056\113\102\061";"\075\073\054\121\072\090\097\048\055\050\102\109";"\100\057\106\088\100\117\115\105\050\075\098\118\067\109\099\118\114\070\061\061";"\072\067\108\119\120\079\061\061";"\119\118\088\049\102\119\108\076\053\085\090\061";"\075\065\112\122\097\083\089\119\051\087\054\075","\053\073\050\069\073\051\116\119\122\069\100\108\049\117\088\070\050\086\061\061";"\089\048\086\115\119\074\069\103\075\054\071\116\109\047\120\121\065\086\061\061","\086\081\103\106\084\119\050\106\088\101\097\076\122\069\073\054","\050\101\073\075\122\098\057\065\115\098\106\106\043\057\098\084";"\087\118\066\114\083\080\104\109\052\087\056\089\056\079\061\061","\118\106\073\056\118\102\107\101\049\088\085\110\071\069\100\073\115\090\061\061","\052\101\047\047\048\077\088\076\067\049\118\088\102\109\088\090","\122\079\061\061","\082\065\122\047\122\081\107\081\084\101\103\077\078\069\088\097";"\122\074\088\074\107\065\098\113\104\080\057\061","\056\108\101\083\120\079\061\061","\073\049\085\080\043\069\073\122";"\097\103\113\054\105\080\047\061";"\047\070\087\056\107\043\109\066\108\069\106\067\086\070\061\061";"\101\082\117\050\105\079\061\061";"\110\118\119\117\107\065\111\068\097\077\121\115";"\082\085\102\048\047\053\047\061","\086\101\116\111\078\120\073\117\100\090\061\061","\073\071\103\114\083\084\112\100\048\102\117\075\085\111\051\049\078\076\054\098\098\116\102\105\065\119\120\090\055\121\111\101\121\102\073\111\081\097\047\061","\052\083\075\055\078\086\061\061","\076\048\043\050\071\103\097\100\051\051\051\115\065\065\114\067","\108\088\048\051";"\099\055\047\098\065\048\115\120\088\070\061\061","\097\120\107\073\102\069\043\061";"\043\086\105\109\056\108\076\109\048\108\079\061","\107\090\061\061","\071\088\119\072\053\099\070\061","\067\083\055\084","\105\101\043\116\106\057\103\100\069\049\057\061","\080\078\090\052\107\098\088\061","\043\067\120\114\048\097\078\070\049\067\098\084\055\070\061\061","\053\109\099\057\084\119\115\085\115\088\116\052\043\049\051\097","\120\065\065\118\074\052\070\115\053\107\104\061","\115\102\066\065\049\106\115\102\088\088\043\065\122\057\112\054\086\120\102\061";"\110\043\102\104\099\100\048\115\074\090\061\061","\104\074\084\085\122\087\055\061";"\100\099\105\073\051\043\109\076\072\113\120\076\099\097\075\077\054\109\087\114\120\055\051\061";"\068\070\077\080\119\103\111\053\104\088\116\108\068\090\051\061","\119\048\081\104\076\075\087\054\105\105\121\066\102\120\122\102","\102\065\119\055\078\073\081\115","\056\071\107\048\106\108\080\111\073\086\061\061";"\105\076\077\119\103\079\061\061";"\098\056\090\047\078\065\117\077\118\076\067\076\055\113\048\099\055\084\074\107\080\079\061\061","\086\118\098\082\050\109\073\097\122\117\098\050\114\118\099\066";"\050\048\072\118\098\088\054\090\105\077\116\099","\099\056\053\048\121\086\061\061";"\051\086\085\086\101\090\061\061","\051\116\086\087\115\079\061\061";"\043\102\097\118\115\049\103\076\082\081\103\099\067\057\106\111","\114\118\088\066\115\101\106\073\100\102\102\097\082\051\050\049\049\090\061\061";"\056\054\090\079\078\112\108\070\113\070\061\061";"\070\047\102\067\108\090\061\061";"\107\102\106\108\055\108\068\090\115\110\067\066","\083\056\109\083","\078\088\079\065\081\066\079\043\073\048\070\048\104\070\061\061","\050\101\073\102\050\069\073\065\084\101\073\111\122\069\098\111\100\109\067\061";"\097\086\061\061","\043\100\104\074\084\086\061\061";"\107\081\105\103\080\089\068\054\111\050\078\082";"\102\119\075\106\075\051\110\116\097\110\098\052\088\079\061\061","\065\111\088\077\122\075\085\055\072\070\061\061";"\086\081\103\106\084\119\050\106\073\069\116\077\122\101\097\106","\097\074\067\053\120\115\051\099\049\049\075\050\054\117\075\087\066\099\065\067\056\110\084\085\085\049\082\074\051\047\078\071\120\070\061\061","\047\099\079\076\049\052\080\051\053\090\061\061","\090\049\117\043\083\122\066\048\097\073\049\118\079\068\052\077\057\047\089\078\078\085\111\048\115\055\101\070\083\084\112\065\083\105\047\090\118\079\090\066\051\100\071\118\082\090\081\043\112\072\111\119\122\109\068\054\073\122\074\103\082\074\082\108\122\071\081\073\052\121\106\083\071\082\082\121\098\081\049\098\105\083\072\070\090\053\078\112\073\076\102\078\102\090\061\061";"\090\117\069\122\075\086\061\061","\106\052\051\061";"\082\086\072\067\114\087\106\077\049\122\086\061","\109\050\084\057\082\076\076\111\050\079\111\052\107\090\061\061";"\111\076\115\068\112\086\061\061";"\122\120\097\072\078\081\056\061";"\074\076\055\083\097\053\090\061","\087\082\076\047\081\078\099\102\078\086\061\061","\114\071\115\047\069\073\084\051\072\047\088\090","\070\083\083\077\114\043\108\109\076\109\098\121\112\111\054\103\119\117\090\113\107\104\075\051\103\065\069\083\073\086\061\061";"\088\081\107\074\073\117\115\108\122\088\112\049\043\109\115\099\088\070\061\061";"\083\114\103\106\075\088\065\081\068\098\056\061","\116\079\097\119\122\103\103\111","\077\104\056\080","\105\083\108\116\108\081\051\119\119\073\051\061","\043\050\076\082\086\079\100\051\099\070\061\061";"\053\104\082\112\043\086\061\061";"\075\117\083\049\069\110\056\061","\114\049\112\070\100\119\086\061","\050\120\106\111\122\057\122\076\043\077\115\102\086\101\107\076\078\069\050\110\122\051\115\052\084\119\115\065","\078\075\056\061","\108\057\047\057\087\084\069\101\082\066\070\061";"\043\120\073\085\078\081\122\106","\049\068\086\097\079\043\102\121\057\079\072\077\103\052\082\057";"\050\102\072\082\099\054\087\105\067\117\116\068\049\113\047\061","\100\069\098\065\114\070\061\061";"\103\073\067\061";"\054\083\082\082\049\057\086\113\048\085\111\112\121\108\121\090\065\089\117\110\078\070\061\061";"\054\068\068\075\122\057\055\053\067\079\061\061";"\086\081\103\106\084\119\050\106\073\069\098\089";"\115\049\073\099\082\077\106\081\118\109\043\112\088\102\098\055\086\070\061\061","\090\076\112\110","\050\101\073\102\086\101\107\076\078\069\050\054\122\049\047\061";"\066\088\073\089\121\118\119\082\103\100\122\115\098\067\104\116\050\052\118\082\116\070\098\080\117\079\061\061";"\116\085\113\057\076\052\055\121\103\076\074\070\100\071\086\090\101\103\076\118\118\111\081\067\087\121\115\086\109\104\107\057\097\056\067\061";"","\112\120\102\113\076\100\102\087","\083\078\047\103\082\080\065\117\082\085\070\106","\114\098\090\097\088\077\073\049\084\117\122\080\114\065\079\066";"\052\043\108\106\065\087\052\061";"\118\107\105\074\107\079\061\061","\073\119\106\097\115\081\086\061";"\078\119\103\075\086\088\103\120\114\066\100\114\067\088\115\114\122\079\061\061";"\118\109\050\080\073\118\051\047\100\069\057\102\118\101\055\081\073\086\061\061";"\097\100\110\076\077\071\097\075\083\067\057\061","\078\069\116\107\122\109\115\102\043\120\106\111\122\070\061\061";"\082\049\112\052\122\049\076\073\086\073\107\085\115\119\099\056","\076\080\100\047\089\090\061\061","\100\102\050\122\071\117\103\101\114\051\085\103\043\119\076\057","\082\086\108\106\102\070\061\061","\050\101\073\102\088\101\073\054\100\120\106\117\122\086\061\061","\100\077\100\070\122\049\098\120\118\102\086\081\073\077\086\047\049\049\079\061","\076\105\070\054\107\079\061\061","\122\101\066\107\100\069\115\055","\118\117\102\099\054\075\051\061","\084\066\100\082\100\098\103\052\118\049\098\050\118\101\107\067\114\081\056\061";"\068\043\099\081\049\084\104\061";"\088\102\106\083\050\065\099\074\043\117\050\080\100\066\050\073\073\081\051\061","\049\118\073\102\067\102\107\098\086\077\043\102\053\098\056\097","\050\120\106\111\122\057\122\076\043\077\115\102\086\101\107\076\078\069\086\061";"\078\068\113\116\109\074\080\043\071\088\069\070\101\104\051\061";"\067\119\087\066\082\050\114\115\115\082\079\061";"\079\109\071\067\080\105\079\081","\109\099\101\113\101\105\105\067\122\090\061\061";"\082\073\115\108\082\118\098\081\049\073\050\089\115\120\085\081","\105\088\068\084\108\049\065\074\108\073\050\050\108\097\085\057\078\116\047\078\053\079\061\061","\112\084\054\111\101\111\087\073\099\104\069\068\102\072\079\049";"\118\118\101\084\105\070\061\061";"\043\081\073\089";"\043\120\098\111\122\069\116\085";"\070\119\048\087\069\099\101\085\116\116\048\074\049\054\117\072","\043\081\099\106\122\049\050\113\084\049\112\077\078\069\088\061";"\053\089\079\106\122\074\055\076\053\079\061\061";"\088\043\116\085\097\079\061\061";"\050\089\053\090\049\079\061\061","\087\065\085\050";"\049\117\051\066\082\069\103\049\088\049\100\056\067\088\043\070\053\057\066\069";"\078\119\122\114\053\057\115\067\118\109\100\072\088\101\076\109\050\120\079\061";"\100\069\116\065\100\109\103\076\078\120\043\061";"\078\054\057\068\056\111\057\117\112\099\047\097\043\070\061\061";"\104\085\082\066\086\090\061\061","\077\067\055\082\050\050\086\079\051\102\106\052\084\121\108\084";"\083\089\086\075\122\048\067\061","\074\112\049\067\109\077\090\106\084\074\050\067","\078\109\115\056\114\102\115\072\084\088\051\102\114\117\100\112\100\086\061\061","\047\088\071\057\116\108\111\050";"\050\101\073\102\088\109\103\072\043\069\073\054\100\109\106\075\114\069\098\111\122\101\073\051\088\101\106\077\078\120\098\052","\109\086\061\061";"\100\049\112\070\084\049\115\083";"\099\122\052\049\110\043\110\122\085\101\052\061","\047\099\116\078\048\050\074\105\051\086\061\061";"\119\066\116\076\078\120\050\106\071\090\061\061";"\080\106\118\115\097\090\061\061";"\051\084\079\086\119\122\051\061","\075\049\085\084\112\086\061\061","\107\053\049\076\073\077\047\075\098\102\110\076\077\108\099\054","\121\051\076\051\112\048\067\118\100\086\061\061","\084\090\061\061","\086\049\115\102\114\119\122\107\100\069\088\061";"\122\101\098\085\122\086\061\061";"\047\055\102\071\074\101\099\121\117\065\097\102\109\070\066\086\076\086\061\061","\088\101\073\102\073\120\098\052\100\049\088\061","\048\121\086\086\113\051\047\118\114\051\076\101\057\086\061\061";"\067\043\112\104\043\052\113\065\073\056\051\061";"\100\069\098\054\122\101\073\102","\105\083\105\121\082\086\061\061";"\100\120\100\055\100\098\107\051\118\051\115\109\115\102\085\111","\065\047\122\118\089\081\075\106\050\118\121\120\118\056\049\067","\100\077\073\114\088\088\116\106\050\101\102\065\043\120\097\075\115\081\086\061";"\100\066\056\101\078\081\099\080\082\065\073\103\049\119\079\065","\084\117\090\112\067\051\076\103\118\101\115\105\049\073\076\086","\073\101\097\115\050\077\067\065\073\075\115\122\073\106\107\117";"\068\067\119\104\053\072\101\065\119\070\061\061";"\067\106\078\114\077\109\069\055\043\079\061\061","\082\119\115\099","\057\117\080\078\075\086\061\061";"\114\087\070\067\074\057\117\048\109\113\122\076\108\090\081\103\054\069\115\104\109\110\086\061","\109\088\068\088\108\090\048\084\102\103\067\061","\083\078\080\079\081\086\061\061";"\114\077\079\047\088\106\107\115\100\120\055\065\073\118\098\069","\114\088\097\112\078\098\076\074\086\102\102\112\088\049\103\109\073\066\057\061";"\100\122\112\102\048\065\118\098\072\075\119\050\071\069\047\099\101\113\082\080","\090\118\066\052\090\070\061\061","\115\090\061\061";"\083\111\070\075\120\086\061\061";"\122\081\115\066\084\079\061\061";"\078\075\057\061";"\100\073\098\047\114\065\057\102\082\088\116\065\086\049\073\052\050\090\061\061";"\104\079\066\097\043\052\065\115\114\115\067\061","\120\108\071\119";"\056\078\083\115\099\080\087\067\104\057\070\061";"\077\100\110\070","\043\113\050\117\100\069\079\085\084\105\082\076\090\065\090\061","\078\057\100\070\043\117\100\081\122\120\050\118\082\088\122\048\073\117\067\061","\048\104\065\053\053\079\061\061","\071\056\052\121\071\049\084\076\103\109\104\107\100\109\106\047\102\056\056\106\103\119\052\056\121\068\085\106\115\047\070\043\114\066\101\121\089\079\061\061","\114\067\101\051\081\088\075\047\065\069\076\112";"\119\066\116\077\084\070\061\061";"\104\082\051\049\103\055\118\071\053\086\061\061","\050\073\076\077\073\081\100\067\043\066\122\118\122\069\097\073\073\090\061\061";"\113\057\043\048\108\089\070\061";"\051\070\078\101\083\114\055\101\097\097\097\104","\050\057\085\053\115\057\122\103\043\065\100\088\100\049\088\047","\086\103\070\119\051\079\061\061","\098\086\061\061";"\097\085\078\085\108\121\070\061";"\085\086\121\107\108\103\085\118\052\070\061\061","\119\055\107\072\089\101\079\105\089\065\085\111\090\047\048\102\111\066\109\080\118\106\082\072\056\051\120\110\118\090\061\061","\103\114\083\100\099\122\050\081\082\102\069\069";"\113\115\050\118\079\057\069\099\067\082\056\112\103\097\043\112\113\100\088\061";"\121\069\070\117\054\088\120\100\098\077\103\104\097\107\086\102\052\099\077\08
+-- Made By MindTheFuckingLag
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+    Name = "SCR Autopilot v2",
+    LoadingTitle = "Original by PlaceReporter99",
+    LoadingSubtitle = "Reworked by MindTheLag",
+    ConfigurationSaving = {
+        Enabled = false,
+        FolderName = nil,
+        FileName = "SCR Autopilot v3"
+    },
+    Discord = {
+        Enabled = false,
+        Invite = "noinvitelink",
+        RememberJoins = true
+    },
+    KeySystem = true,
+    KeySettings = {
+        Title = "Get a key",
+        Subtitle = "Key System",
+        Note = "Just Kidding, Key is: 'SCRIsAwesome'",
+        FileName = "SCRAutopilotKey",
+        SaveKey = true,
+        GrabKeyFromSite = false,
+        Key = {"SCRIsAwesome"}
+    }
+})
+
+local rayfieldFontApplied = false
+
+local function applyRayfieldMontserrat()
+    if rayfieldFontApplied then
+        return true
+    end
+
+    local player = game.Players.LocalPlayer
+    if not player then
+        return false
+    end
+
+    local playerGui = player:FindFirstChildOfClass("PlayerGui")
+    if not playerGui then
+        return false
+    end
+
+    local rayfieldGui
+    for _, gui in ipairs(playerGui:GetChildren()) do
+        if gui:IsA("ScreenGui") and string.find(string.lower(gui.Name), "rayfield") then
+            rayfieldGui = gui
+            break
+        end
+    end
+
+    if not rayfieldGui then
+        return false
+    end
+
+    local function setTextFont(obj)
+        if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
+            local ok = pcall(function()
+                obj.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json")
+            end)
+            if not ok then
+                obj.Font = Enum.Font.Gotham
+            end
+        end
+    end
+
+    for _, obj in ipairs(rayfieldGui:GetDescendants()) do
+        setTextFont(obj)
+    end
+    rayfieldGui.DescendantAdded:Connect(setTextFont)
+    rayfieldFontApplied = true
+    return true
+end
+
+task.defer(function()
+    for _ = 1, 40 do
+        if applyRayfieldMontserrat() then
+            break
+        end
+        task.wait(0.25)
+    end
+end)
+
+local MainTab = Window:CreateTab("Main", 4483362458)
+local AutoGuardTab = Window:CreateTab("Auto Guard", 4483362458)
+
+local isEnabled = false
+local cs
+local nl
+local autoNextLegEnabled = false
+local autoDriveInitialized = false
+local autoDriveRunning = false
+local autoDriveState
+local startAutoDrive
+local stopAutoDrive
+local autoGuardEnabled = false
+local autoGuardRunning = false
+local autoGuardToggleRef
+local autopilotToggleRef
+
+local function setToggleOff(toggleRef)
+    if not toggleRef then
+        return
+    end
+    pcall(function()
+        toggleRef:Set(false)
+    end)
+    pcall(function()
+        toggleRef:SetValue(false)
+    end)
+end
+
+-- Tunable autopilot settings.
+local MAXSPEED = 75
+local OBEYSPEEDLIMIT = true
+local SAFESTOPSPEED = 30
+local YELLOWSIGNALSPEED = 45
+local SAFESTOPDISTANCE = 0.2
+local BUFFERSTOP = 100
+
+local function refreshAutoDriveFromSettings()
+    if not autoDriveRunning or not autoDriveState or not autoDriveState.handlers or not autoDriveState.handlers.b then
+        return
+    end
+    pcall(autoDriveState.handlers.b)
+end
+
+local function findDriveGui(playerGui)
+    local direct = playerGui:FindFirstChild("DriveGui")
+    if direct then
+        return direct
+    end
+
+    local deep = playerGui:FindFirstChild("DriveGui", true)
+    if deep then
+        return deep
+    end
+
+    for _, gui in ipairs(playerGui:GetDescendants()) do
+        if gui:IsA("ScreenGui") and string.find(string.lower(gui.Name), "drive") and gui:FindFirstChild("Cluster", true) then
+            return gui
+        end
+    end
+    return nil
+end
+
+autopilotToggleRef = MainTab:CreateToggle({
+    Name = "Enable Autopilot",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        isEnabled = Value
+        if Value then
+            autoGuardEnabled = false
+            setToggleOff(autoGuardToggleRef)
+            local ok, startedOrErr = pcall(startAutoDrive)
+            if not ok then
+                warn("Autopilot start failed:", startedOrErr)
+                isEnabled = false
+                if stopAutoDrive then
+                    stopAutoDrive()
+                end
+            elseif not startedOrErr then
+                warn("Autopilot could not start yet. Enter a train cab first.")
+                isEnabled = false
+                if stopAutoDrive then
+                    stopAutoDrive()
+                end
+            end
+        else
+            stopAutoDrive()
+        end
+    end,
+})
+
+local function clickNextLeg()
+    if not nl then
+        return
+    end
+
+    if not nl.Visible or not nl.Active then
+        return
+    end
+
+    if firesignal and nl.MouseButton1Click then
+        pcall(function()
+            firesignal(nl.MouseButton1Click)
+        end)
+        return
+    end
+
+    pcall(function()
+        nl:Activate()
+    end)
+end
+
+MainTab:CreateToggle({
+    Name = "Auto Next Leg",
+    CurrentValue = false,
+    Flag = "AutoNextLegToggle",
+    Callback = function(Value)
+        autoNextLegEnabled = Value
+        if not Value then
+            return
+        end
+
+        task.spawn(function()
+            while autoNextLegEnabled do
+                clickNextLeg()
+                task.wait(1.5)
+            end
+        end)
+    end,
+})
+
+autoGuardToggleRef = AutoGuardTab:CreateToggle({
+    Name = "Enable Auto Guard",
+    CurrentValue = false,
+    Flag = "AutoGuardToggle",
+    Callback = function(Value)
+        autoGuardEnabled = Value
+        if Value then
+            isEnabled = false
+            stopAutoDrive()
+            setToggleOff(autopilotToggleRef)
+        end
+        if autoGuardEnabled and autoGuardRunning then
+            return
+        end
+
+        if autoGuardEnabled then
+            autoGuardRunning = true
+            task.spawn(function()
+                local guardVim = game:GetService("VirtualInputManager")
+                local guardInput = {
+                    press = function(key)
+                        guardVim:SendKeyEvent(true, key, false, nil)
+                        task.wait(0.005)
+                        guardVim:SendKeyEvent(false, key, false, nil)
+                    end
+                }
+
+                while autoGuardEnabled do
+                    guardInput.press(Enum.KeyCode.E)
+                    task.wait(0.1)
+                    guardInput.press(Enum.KeyCode.T)
+                    task.wait(0.1)
+                    guardInput.press(Enum.KeyCode.Y)
+                    task.wait(0.1)
+                    guardInput.press(Enum.KeyCode.Q)
+                    task.wait(0.1)
+                    guardInput.press(Enum.KeyCode.R)
+                    task.wait(0.1)
+                end
+
+                autoGuardRunning = false
+            end)
+        end
+    end,
+})
+
+-- Settings UI rebuilt from scratch.
+local SettingsTab = Window:CreateTab("Settings", 4483362458)
+
+local function createSliderSafe(config)
+    local ok, err = pcall(function()
+        SettingsTab:CreateSlider(config)
+    end)
+    if not ok then
+        warn("Settings slider error:", config.Name, err)
+    end
+end
+
+createSliderSafe({
+    Name = "Max Speed",
+    Range = {0, 120},
+    Increment = 1,
+    Suffix = "mph",
+    CurrentValue = MAXSPEED,
+    Flag = "SETTINGS_MAXSPEED_V4",
+    Callback = function(Value)
+        MAXSPEED = Value
+        refreshAutoDriveFromSettings()
+    end,
+})
+
+createSliderSafe({
+    Name = "Safe Stop Speed",
+    Range = {0, 80},
+    Increment = 1,
+    Suffix = "mph",
+    CurrentValue = SAFESTOPSPEED,
+    Flag = "SETTINGS_SAFESTOPSPEED_V4",
+    Callback = function(Value)
+        SAFESTOPSPEED = Value
+        refreshAutoDriveFromSettings()
+    end,
+})
+
+createSliderSafe({
+    Name = "Yellow Signal Speed",
+    Range = {0, 80},
+    Increment = 1,
+    Suffix = "mph",
+    CurrentValue = YELLOWSIGNALSPEED,
+    Flag = "SETTINGS_YELLOWSIGNALSPEED_V4",
+    Callback = function(Value)
+        YELLOWSIGNALSPEED = Value
+        refreshAutoDriveFromSettings()
+    end,
+})
+
+createSliderSafe({
+    Name = "Safe Stop Distance",
+    Range = {0, 1},
+    Increment = 0.01,
+    Suffix = "mi",
+    CurrentValue = SAFESTOPDISTANCE,
+    Flag = "SETTINGS_SAFESTOPDISTANCE_V4",
+    Callback = function(Value)
+        SAFESTOPDISTANCE = Value
+        refreshAutoDriveFromSettings()
+    end,
+})
+
+createSliderSafe({
+    Name = "Buffer Stop Distance",
+    Range = {0, 300},
+    Increment = 1,
+    Suffix = "studs",
+    CurrentValue = BUFFERSTOP,
+    Flag = "SETTINGS_BUFFERSTOP_V4",
+    Callback = function(Value)
+        BUFFERSTOP = Value
+        refreshAutoDriveFromSettings()
+    end,
+})
+
+local okToggle, errToggle = pcall(function()
+    SettingsTab:CreateToggle({
+        Name = "Obey Speed Limit",
+        CurrentValue = OBEYSPEEDLIMIT,
+        Flag = "SETTINGS_OBEYSPEEDLIMIT_V4",
+        Callback = function(Value)
+            OBEYSPEEDLIMIT = Value
+            refreshAutoDriveFromSettings()
+        end,
+    })
+end)
+if not okToggle then
+    warn("Settings toggle error: Obey Speed Limit", errToggle)
+end
+-- You may want to change these constants depending on your train.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local function disconnectAutoDriveConnections()
+    if not autoDriveState or not autoDriveState.connections then
+        return
+    end
+    for _, connection in pairs(autoDriveState.connections) do
+        if connection then
+            connection:Disconnect()
+        end
+    end
+    autoDriveState.connections = {}
+end
+
+startAutoDrive = function()
+    if autoDriveRunning then
+        return true
+    end
+
+    if not autoDriveInitialized then
+        print("AUTO DRIVE")
+
+        local state = { connections = {} }
+        local player = game.Players.LocalPlayer
+        if not player then
+            warn("Autopilot: LocalPlayer not found")
+            return false
+        end
+
+        local playerGui = player:FindFirstChild("PlayerGui")
+        if not playerGui then
+            warn("Autopilot: PlayerGui not found")
+            return false
+        end
+
+        local drive = findDriveGui(playerGui)
+        if not drive then
+            task.wait(2)
+            drive = findDriveGui(playerGui)
+        end
+        if not drive then
+            warn("Autopilot: DriveGui not found. Join and take control of a train first.")
+            return false
+        end
+
+        state.cs = Instance.new("BindableEvent")
+        state.cs.Name = "ChangeSpeed"
+        cs = state.cs
+
+        local okBuf, bufOrErr = pcall(function()
+            return loadstring(game:HttpGet("https://raw.githubusercontent.com/PlaceReporter99/SCR-Autopilot/refs/heads/main/const/RouteBuffers.lua"))()
+        end)
+        if not okBuf then
+            warn("Autopilot: failed to load route buffers:", tostring(bufOrErr))
+            return false
+        end
+        state.buf = bufOrErr
+        signalv = {
+            ["proceed"] = 0,
+            ["precaution"] = 1,
+            ["caution"] = 2,
+            ["danger"] = 3,
+            ["unknown"] = 4
+        }
+
+        local fex = Instance.new("BindableEvent")
+        fex.Name = "ExecuteFunction"
+        fex.Event:Connect(function(f) f() end)
+
+        local vim = game:GetService("VirtualInputManager")
+        input = {
+            hold = function(key, time)
+                print("Holding key", key)
+                vim:SendKeyEvent(true, key, false, nil)
+                task.wait(time)
+                vim:SendKeyEvent(false, key, false, nil)
+                print("Finished holding key", key)
+            end,
+            press = function(key)
+                print("Pressing key", key)
+                vim:SendKeyEvent(true, key, false, nil)
+                task.wait(0.005)
+                vim:SendKeyEvent(false, key, false, nil)
+            end,
+            start = function(key)
+                print("starting key", key)
+                vim:SendKeyEvent(true, key, false, nil)
+            end,
+            stop = function(key)
+                print("stopping key", key)
+                vim:SendKeyEvent(false, key, false, nil)
+            end
+        }
+
+        local schd = drive.Additional.DetailsStack.AdvanceContainer.Main.ScheduleDetails
+        local left = schd.Counters
+        local cluster = drive.Cluster
+        local arm = cluster.Spedometer.TargetIndicator
+        local d = left.Distance
+        local msg = drive.Additional.DetailsStack.MessageContainer
+        local signal = drive.Additional.DetailsStack.AdvanceContainer.Signal.Standard
+        local signald = drive.Additional.DetailsStack.AdvanceContainer.Signal.Distance
+        local speedl = drive.Cluster.Stats.CurrentState.SpeedLimit.Limit
+        nl = drive.Summary.SummaryPage.Controls.NextLeg
+
+        local function getD(v)
+            return (workspace.CurrentCamera.Focus.Position - v).Magnitude
+        end
+
+        local function getSpeedLimit()
+            if OBEYSPEEDLIMIT then
+                return tonumber(speedl.Text) or 1000
+            end
+            return 1000
+        end
+
+        local function getSignal()
+            if signal.Danger.BackgroundTransparency == 0 then
+                return signalv.danger
+            end
+            if signal.Precaution.BackgroundTransparency == 0 then
+                return signalv.precaution
+            end
+            if signal.Caution.BackgroundTransparency == 0 then
+                return signalv.caution
+            end
+            if signal.Proceed.BackgroundTransparency == 0 then
+                return signalv.proceed
+            end
+            return signalv.unknown
+        end
+
+        local function getSignalDistance()
+            return tonumber(signald.Text:sub(1, -4)) or math.huge
+        end
+
+        speed_angle = function(speed) return speed * 1.2 - 31 end
+
+        function target(speed)
+            local tt = false
+            local stopr = cs.Event:Connect(function()
+                tt = true
+            end)
+
+            input.stop(Enum.KeyCode.W)
+            input.stop(Enum.KeyCode.S)
+
+            if -1.8 <= speed_angle(speed) - arm.Rotation and speed_angle(speed) - arm.Rotation <= 1.8 then
+                -- already near target speed
+            elseif speed_angle(speed) < arm.Rotation then
+                input.start(Enum.KeyCode.S)
+                while speed_angle(speed) < arm.Rotation or tt do
+                    task.wait(0.005)
+                end
+                input.stop(Enum.KeyCode.S)
+            elseif speed_angle(speed) > arm.Rotation then
+                input.start(Enum.KeyCode.W)
+                while speed_angle(speed) > arm.Rotation or tt do
+                    task.wait(0.005)
+                end
+                input.stop(Enum.KeyCode.W)
+            end
+
+            stopr:Disconnect()
+        end
+
+        local function onClockTick()
+            input.press(Enum.KeyCode.T)
+            input.press(Enum.KeyCode.Q)
+            local dist = tonumber(d.Text:sub(1, -4))
+            if not dist then
+                return
+            end
+            if arm.Rotation <= speed_angle(10)
+                and dist ~= 0
+                and (getSignal() ~= signalv.danger or getSignalDistance() > dist) then
+                task.wait(10)
+                local distAfterWait = tonumber(d.Text:sub(1, -4))
+                if not distAfterWait then
+                    return
+                end
+                if arm.Rotation <= speed_angle(10)
+                    and distAfterWait ~= 0
+                    and (getSignal() ~= signalv.danger or getSignalDistance() > distAfterWait) then
+                    cs:Fire(SAFESTOPSPEED)
+                end
+            end
+        end
+
+        local function b()
+            local num = tonumber(d.Text:sub(1, -4))
+            if not num then
+                return
+            end
+            if num == 0 or (getSignal() == signalv.danger and num >= getSignalDistance()) then
+                if num == 0 then
+                    local plat = string.gsub(schd.Platform.Text, "Platform ", "")
+                    local st = schd.NextStop.Text
+                    if state.buf[st] and state.buf[st][plat] then
+                        while getD(state.buf[st][plat]) >= BUFFERSTOP and autoDriveRunning do
+                            cs:Fire(15)
+                            task.wait(0.1)
+                        end
+                    end
+                end
+                cs:Fire(0)
+            elseif num <= SAFESTOPDISTANCE then
+                cs:Fire(math.min(SAFESTOPSPEED, getSpeedLimit()))
+            elseif getSignal() == signalv.caution then
+                cs:Fire(math.min(YELLOWSIGNALSPEED, getSpeedLimit()))
+            elseif num > SAFESTOPDISTANCE and (getSignal() == signalv.precaution or getSignal() == signalv.proceed) then
+                cs:Fire(math.min(MAXSPEED, getSpeedLimit()))
+            end
+        end
+
+        local function under(child)
+            if child.Name == "DriveMessage"
+                and (string.match(child.TextLabel.Text, "longside") or string.match(child.TextLabel.Text, "uffer")) then
+                cs:Fire(5)
+                task.wait(3)
+                cs:Fire(0)
+            end
+        end
+
+        state.refs = {
+            drive = drive,
+            d = d,
+            signald = signald,
+            speedl = speedl,
+            msg = msg
+        }
+        state.handlers = {
+            onClockTick = onClockTick,
+            b = b,
+            under = under
+        }
+        state.getSpeedLimit = getSpeedLimit
+
+        cs.Event:Connect(function(a)
+            target(a)
+        end)
+
+        autoDriveState = state
+        autoDriveInitialized = true
+    end
+
+    autoDriveRunning = true
+    disconnectAutoDriveConnections()
+
+    local refs = autoDriveState.refs
+    local handlers = autoDriveState.handlers
+    autoDriveState.connections.clock = refs.drive.Clock.TextLabel:GetPropertyChangedSignal("Text"):Connect(handlers.onClockTick)
+    autoDriveState.connections.distance = refs.d:GetPropertyChangedSignal("Text"):Connect(handlers.b)
+    autoDriveState.connections.signalDistance = refs.signald:GetPropertyChangedSignal("Text"):Connect(handlers.b)
+    autoDriveState.connections.speedLimit = refs.speedl:GetPropertyChangedSignal("Text"):Connect(handlers.b)
+    autoDriveState.connections.msg = refs.msg.ChildAdded:Connect(handlers.under)
+
+    autoDriveState.handlers.b()
+    if cs and autoDriveState.getSpeedLimit then
+        cs:Fire(math.min(MAXSPEED, autoDriveState.getSpeedLimit()))
+    end
+    return true
+end
+
+stopAutoDrive = function()
+    autoDriveRunning = false
+    disconnectAutoDriveConnections()
+    if cs then
+        cs:Fire(0)
+    end
+end
