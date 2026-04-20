@@ -1,0 +1,514 @@
+-- SCR Autopilot (Obsidian UI rewrite)
+-- Original concept by PlaceReporter99
+
+local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
+local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
+
+local Toggles = Library.Toggles
+local Options = Library.Options
+
+local settings = {
+    MAXSPEED = 75,
+    OBEYSPEEDLIMIT = true,
+    SAFESTOPSPEED = 30,
+    YELLOWSIGNALSPEED = 45,
+    SAFESTOPDISTANCE = 0.2,
+    BUFFERSTOP = 100,
+}
+
+local vim = game:GetService("VirtualInputManager")
+local function pressKey(key)
+    vim:SendKeyEvent(true, key, false, nil)
+    task.wait(0.005)
+    vim:SendKeyEvent(false, key, false, nil)
+end
+
+local function startKey(key)
+    vim:SendKeyEvent(true, key, false, nil)
+end
+
+local function stopKey(key)
+    vim:SendKeyEvent(false, key, false, nil)
+end
+
+local function findDriveGui(playerGui)
+    local direct = playerGui:FindFirstChild("DriveGui")
+    if direct then
+        return direct
+    end
+
+    local deep = playerGui:FindFirstChild("DriveGui", true)
+    if deep then
+        return deep
+    end
+
+    for _, gui in ipairs(playerGui:GetDescendants()) do
+        if gui:IsA("ScreenGui") and string.find(string.lower(gui.Name), "drive") and gui:FindFirstChild("Cluster", true) then
+            return gui
+        end
+    end
+
+    return nil
+end
+
+local autopilot = {
+    initialized = false,
+    running = false,
+    refs = nil,
+    connections = {},
+    cs = nil,
+    buf = nil,
+    signalv = {
+        proceed = 0,
+        precaution = 1,
+        caution = 2,
+        danger = 3,
+        unknown = 4,
+    },
+}
+
+function autopilot:disconnectAll()
+    for _, connection in pairs(self.connections) do
+        if connection then
+            connection:Disconnect()
+        end
+    end
+    self.connections = {}
+end
+
+function autopilot:getSpeedLimit()
+    if settings.OBEYSPEEDLIMIT and self.refs and self.refs.speedl then
+        return tonumber(self.refs.speedl.Text) or 1000
+    end
+    return 1000
+end
+
+function autopilot:getSignal()
+    local signal = self.refs.signal
+    if signal.Danger.BackgroundTransparency == 0 then
+        return self.signalv.danger
+    end
+    if signal.Precaution.BackgroundTransparency == 0 then
+        return self.signalv.precaution
+    end
+    if signal.Caution.BackgroundTransparency == 0 then
+        return self.signalv.caution
+    end
+    if signal.Proceed.BackgroundTransparency == 0 then
+        return self.signalv.proceed
+    end
+    return self.signalv.unknown
+end
+
+function autopilot:getSignalDistance()
+    return tonumber(self.refs.signald.Text:sub(1, -4)) or math.huge
+end
+
+function autopilot:getDistanceToStop()
+    return tonumber(self.refs.d.Text:sub(1, -4))
+end
+
+function autopilot:speedAngle(speed)
+    return speed * 1.2 - 31
+end
+
+function autopilot:target(speed)
+    if not self.running then
+        return
+    end
+
+    local arm = self.refs.arm
+    local cs = self.cs
+    local interrupted = false
+
+    local stopr = cs.Event:Connect(function()
+        interrupted = true
+    end)
+
+    stopKey(Enum.KeyCode.W)
+    stopKey(Enum.KeyCode.S)
+
+    local targetAngle = self:speedAngle(speed)
+    local delta = targetAngle - arm.Rotation
+
+    if delta < -1.8 then
+        startKey(Enum.KeyCode.S)
+        while self.running and (self:speedAngle(speed) < arm.Rotation or interrupted) do
+            task.wait(0.005)
+        end
+        stopKey(Enum.KeyCode.S)
+    elseif delta > 1.8 then
+        startKey(Enum.KeyCode.W)
+        while self.running and (self:speedAngle(speed) > arm.Rotation or interrupted) do
+            task.wait(0.005)
+        end
+        stopKey(Enum.KeyCode.W)
+    end
+
+    stopr:Disconnect()
+end
+
+function autopilot:step()
+    if not self.running then
+        return
+    end
+
+    local num = self:getDistanceToStop()
+    if not num then
+        return
+    end
+
+    if num == 0 or (self:getSignal() == self.signalv.danger and num >= self:getSignalDistance()) then
+        if num == 0 then
+            local schd = self.refs.schd
+            local plat = string.gsub(schd.Platform.Text, "Platform ", "")
+            local st = schd.NextStop.Text
+            if self.buf and self.buf[st] and self.buf[st][plat] then
+                local targetPos = self.buf[st][plat]
+                while self.running and (workspace.CurrentCamera.Focus.Position - targetPos).Magnitude >= settings.BUFFERSTOP do
+                    self.cs:Fire(15)
+                    task.wait(0.1)
+                end
+            end
+        end
+        self.cs:Fire(0)
+        return
+    end
+
+    if num <= settings.SAFESTOPDISTANCE then
+        self.cs:Fire(math.min(settings.SAFESTOPSPEED, self:getSpeedLimit()))
+    elseif self:getSignal() == self.signalv.caution then
+        self.cs:Fire(math.min(settings.YELLOWSIGNALSPEED, self:getSpeedLimit()))
+    elseif self:getSignal() == self.signalv.precaution or self:getSignal() == self.signalv.proceed then
+        self.cs:Fire(math.min(settings.MAXSPEED, self:getSpeedLimit()))
+    end
+end
+
+function autopilot:onClockTick()
+    if not self.running then
+        return
+    end
+
+    pressKey(Enum.KeyCode.T)
+    pressKey(Enum.KeyCode.Q)
+
+    local dist = self:getDistanceToStop()
+    if not dist then
+        return
+    end
+
+    if self.refs.arm.Rotation <= self:speedAngle(10)
+        and dist ~= 0
+        and (self:getSignal() ~= self.signalv.danger or self:getSignalDistance() > dist) then
+        task.wait(10)
+
+        local distAfterWait = self:getDistanceToStop()
+        if not distAfterWait then
+            return
+        end
+
+        if self.refs.arm.Rotation <= self:speedAngle(10)
+            and distAfterWait ~= 0
+            and (self:getSignal() ~= self.signalv.danger or self:getSignalDistance() > distAfterWait) then
+            self.cs:Fire(settings.SAFESTOPSPEED)
+        end
+    end
+end
+
+function autopilot:onDriveMessage(child)
+    if not self.running then
+        return
+    end
+
+    if child.Name == "DriveMessage" and (string.match(child.TextLabel.Text, "longside") or string.match(child.TextLabel.Text, "uffer")) then
+        self.cs:Fire(5)
+        task.wait(3)
+        self.cs:Fire(0)
+    end
+end
+
+function autopilot:init()
+    if self.initialized then
+        return true
+    end
+
+    local player = game.Players.LocalPlayer
+    if not player then
+        return false
+    end
+
+    local playerGui = player:FindFirstChild("PlayerGui")
+    if not playerGui then
+        return false
+    end
+
+    local drive = findDriveGui(playerGui)
+    if not drive then
+        task.wait(2)
+        drive = findDriveGui(playerGui)
+    end
+    if not drive then
+        Library:Notify("DriveGui not found. Sit in a train cab first.", 4)
+        return false
+    end
+
+    local okBuf, bufOrErr = pcall(function()
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/PlaceReporter99/SCR-Autopilot/refs/heads/main/const/RouteBuffers.lua"))()
+    end)
+    if not okBuf then
+        Library:Notify("Failed to load route buffers.", 4)
+        warn("Buffer load failed:", bufOrErr)
+        return false
+    end
+
+    self.buf = bufOrErr
+    self.cs = Instance.new("BindableEvent")
+    self.cs.Name = "ChangeSpeed"
+    self.cs.Event:Connect(function(speed)
+        self:target(speed)
+    end)
+
+    self.refs = {
+        drive = drive,
+        schd = drive.Additional.DetailsStack.AdvanceContainer.Main.ScheduleDetails,
+        arm = drive.Cluster.Spedometer.TargetIndicator,
+        d = drive.Additional.DetailsStack.AdvanceContainer.Main.ScheduleDetails.Counters.Distance,
+        signald = drive.Additional.DetailsStack.AdvanceContainer.Signal.Distance,
+        signal = drive.Additional.DetailsStack.AdvanceContainer.Signal.Standard,
+        speedl = drive.Cluster.Stats.CurrentState.SpeedLimit.Limit,
+        msg = drive.Additional.DetailsStack.MessageContainer,
+        nl = drive.Summary.SummaryPage.Controls.NextLeg,
+    }
+
+    self.initialized = true
+    return true
+end
+
+function autopilot:start()
+    if self.running then
+        return true
+    end
+
+    if not self:init() then
+        return false
+    end
+
+    self.running = true
+    self:disconnectAll()
+
+    self.connections.clock = self.refs.drive.Clock.TextLabel:GetPropertyChangedSignal("Text"):Connect(function()
+        self:onClockTick()
+    end)
+    self.connections.distance = self.refs.d:GetPropertyChangedSignal("Text"):Connect(function()
+        self:step()
+    end)
+    self.connections.signalDistance = self.refs.signald:GetPropertyChangedSignal("Text"):Connect(function()
+        self:step()
+    end)
+    self.connections.speedLimit = self.refs.speedl:GetPropertyChangedSignal("Text"):Connect(function()
+        self:step()
+    end)
+    self.connections.msg = self.refs.msg.ChildAdded:Connect(function(child)
+        self:onDriveMessage(child)
+    end)
+
+    self:step()
+    self.cs:Fire(math.min(settings.MAXSPEED, self:getSpeedLimit()))
+    return true
+end
+
+function autopilot:stop()
+    self.running = false
+    self:disconnectAll()
+    if self.cs then
+        self.cs:Fire(0)
+    end
+end
+
+function autopilot:refresh()
+    if self.running then
+        self:step()
+    end
+end
+
+local autoNextLegEnabled = false
+local autoGuardEnabled = false
+local autoGuardRunning = false
+
+local Window = Library:CreateWindow({
+    Title = "SCR Autopilot",
+    Footer = "Obsidian UI rebuild",
+    Icon = 4483362458,
+    NotifySide = "Right",
+    ShowCustomCursor = true,
+})
+
+local Tabs = {
+    Main = Window:AddTab("Main", "train"),
+    Settings = Window:AddTab("Settings", "settings"),
+    Guard = Window:AddTab("Auto Guard", "shield"),
+}
+
+local MainBox = Tabs.Main:AddLeftGroupbox("Autopilot", "train")
+local SettingsBox = Tabs.Settings:AddLeftGroupbox("Tuning", "sliders-horizontal")
+local GuardBox = Tabs.Guard:AddLeftGroupbox("Guard", "shield")
+
+MainBox:AddToggle("EnableAutopilot", { Text = "Enable Autopilot", Default = false })
+MainBox:AddToggle("AutoNextLeg", { Text = "Auto Next Leg", Default = false })
+GuardBox:AddToggle("EnableAutoGuard", { Text = "Enable Auto Guard", Default = false })
+SettingsBox:AddToggle("ObeySpeedLimit", { Text = "Obey Speed Limit", Default = settings.OBEYSPEEDLIMIT })
+
+SettingsBox:AddSlider("MaxSpeed", {
+    Text = "Max Speed",
+    Default = settings.MAXSPEED,
+    Min = 0,
+    Max = 120,
+    Rounding = 0,
+    Suffix = " mph",
+})
+
+SettingsBox:AddSlider("SafeStopSpeed", {
+    Text = "Safe Stop Speed",
+    Default = settings.SAFESTOPSPEED,
+    Min = 0,
+    Max = 80,
+    Rounding = 0,
+    Suffix = " mph",
+})
+
+SettingsBox:AddSlider("YellowSignalSpeed", {
+    Text = "Yellow Signal Speed",
+    Default = settings.YELLOWSIGNALSPEED,
+    Min = 0,
+    Max = 80,
+    Rounding = 0,
+    Suffix = " mph",
+})
+
+SettingsBox:AddSlider("SafeStopDistance", {
+    Text = "Safe Stop Distance",
+    Default = settings.SAFESTOPDISTANCE,
+    Min = 0,
+    Max = 1,
+    Rounding = 2,
+    Suffix = " mi",
+})
+
+SettingsBox:AddSlider("BufferStopDistance", {
+    Text = "Buffer Stop Distance",
+    Default = settings.BUFFERSTOP,
+    Min = 0,
+    Max = 300,
+    Rounding = 0,
+    Suffix = " studs",
+})
+
+Toggles.EnableAutopilot:OnChanged(function()
+    local enabled = Toggles.EnableAutopilot.Value
+    if enabled then
+        if Toggles.EnableAutoGuard.Value then
+            Toggles.EnableAutoGuard:SetValue(false)
+        end
+
+        local started = autopilot:start()
+        if not started then
+            Toggles.EnableAutopilot:SetValue(false)
+            Library:Notify("Autopilot failed to start.", 4)
+        else
+            Library:Notify("Autopilot enabled.", 2)
+        end
+    else
+        autopilot:stop()
+        Library:Notify("Autopilot disabled.", 2)
+    end
+end)
+
+Toggles.AutoNextLeg:OnChanged(function()
+    autoNextLegEnabled = Toggles.AutoNextLeg.Value
+    if not autoNextLegEnabled then
+        return
+    end
+
+    task.spawn(function()
+        while autoNextLegEnabled do
+            if autopilot.refs and autopilot.refs.nl and autopilot.refs.nl.Visible and autopilot.refs.nl.Active then
+                if firesignal and autopilot.refs.nl.MouseButton1Click then
+                    pcall(function()
+                        firesignal(autopilot.refs.nl.MouseButton1Click)
+                    end)
+                else
+                    pcall(function()
+                        autopilot.refs.nl:Activate()
+                    end)
+                end
+            end
+            task.wait(1.5)
+        end
+    end)
+end)
+
+Toggles.EnableAutoGuard:OnChanged(function()
+    autoGuardEnabled = Toggles.EnableAutoGuard.Value
+
+    if autoGuardEnabled then
+        if Toggles.EnableAutopilot.Value then
+            Toggles.EnableAutopilot:SetValue(false)
+        end
+
+        if autoGuardRunning then
+            return
+        end
+
+        autoGuardRunning = true
+        Library:Notify("Auto Guard enabled.", 2)
+        task.spawn(function()
+            while autoGuardEnabled do
+                pressKey(Enum.KeyCode.E)
+                task.wait(0.1)
+                pressKey(Enum.KeyCode.T)
+                task.wait(0.1)
+                pressKey(Enum.KeyCode.Y)
+                task.wait(0.1)
+                pressKey(Enum.KeyCode.Q)
+                task.wait(0.1)
+                pressKey(Enum.KeyCode.R)
+                task.wait(0.1)
+            end
+            autoGuardRunning = false
+        end)
+    else
+        Library:Notify("Auto Guard disabled.", 2)
+    end
+end)
+
+Toggles.ObeySpeedLimit:OnChanged(function()
+    settings.OBEYSPEEDLIMIT = Toggles.ObeySpeedLimit.Value
+    autopilot:refresh()
+end)
+
+Options.MaxSpeed:OnChanged(function()
+    settings.MAXSPEED = Options.MaxSpeed.Value
+    autopilot:refresh()
+end)
+
+Options.SafeStopSpeed:OnChanged(function()
+    settings.SAFESTOPSPEED = Options.SafeStopSpeed.Value
+    autopilot:refresh()
+end)
+
+Options.YellowSignalSpeed:OnChanged(function()
+    settings.YELLOWSIGNALSPEED = Options.YellowSignalSpeed.Value
+    autopilot:refresh()
+end)
+
+Options.SafeStopDistance:OnChanged(function()
+    settings.SAFESTOPDISTANCE = Options.SafeStopDistance.Value
+    autopilot:refresh()
+end)
+
+Options.BufferStopDistance:OnChanged(function()
+    settings.BUFFERSTOP = Options.BufferStopDistance.Value
+    autopilot:refresh()
+end)
+
+Library:Notify("SCR Autopilot loaded (Obsidian UI).", 3)
