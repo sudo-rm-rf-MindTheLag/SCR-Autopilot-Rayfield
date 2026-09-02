@@ -6,7 +6,7 @@
 -- Uhmm I need a GNU license and i dont fucking wanna type that shit in my code cuz im lazy
 -- Original Script by https://github.com/PlaceReporter99
 -- Heres the SRC btw if ur interested:
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/gen2"))()
 
 local Window = Rayfield:CreateWindow({
     Name = "SCR Autopilot v2",
